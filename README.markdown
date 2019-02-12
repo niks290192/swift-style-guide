@@ -52,3 +52,7 @@ Our overarching goals are clarity, consistency and bervity, in that order
 * [Copyright Statement](#copyright-statement)
 * [Smiley Face](#smiley-face)
 * [References](#references)
+
+## Correctness
+
+Strive to make your code compile without warnings. This rule informs many style decisions such as using `#selector` types instead of string literals.
