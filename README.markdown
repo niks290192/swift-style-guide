@@ -76,7 +76,7 @@ Descriptive and consistent naming makes software easier to read and understand. 
   - noun methods follow the formX rule for the mutating version
   - boolean types should read like assertions
   - protocols that describe _what something is_ should read as nouns
-  - protocols that describe _a capability_ should end in_-able_ or _-ible_
+  - protocols that describe _a capability_ should end in _-able_ or _-ible_
 - using terms that don't surprise experts or confuse beginners
 - generally avoiding abbrevations 
 - using precedent for names
@@ -85,6 +85,22 @@ Descriptive and consistent naming makes software easier to read and understand. 
 - giving the same base name to methods that share the same meaning 
 - avoiding overloads on return type 
 - choosing good parameter manes that serve as documentation
-- prederring to name the first parameter instead of including its name in the method name, except as mentioned under Delegates
+- preferring to name the first parameter instead of including its name in the method name, except as mentioned under Delegates
 - labeling closure and tuple parameters
 - taking advantage of default parameters
+
+### Prose
+
+When referring to methods in prose, being unambiguous is critical. To refer to a method name, use the simplest form possible.
+
+1. Write method name with no parameters. **Example:** Next, you need to call `addTarget`.
+2. Write the method name with argument labels. **Example:** Next, you need to call `addTarget(_:action)`.
+3. Write the full method name with argument labels and types.
+**Example:** Next, you need to call `addTarget(_: Any?, action: Selector?)`.
+
+For the above example using `UIGestureRecognizer`, 1 is unambiguous and preferred.
+
+**Pro Tip:** You can use Xcode's jum bar to lookup methods with argument labels. If you're particularly good at mashing lots of keys simultaneously, put the cursor in  the method name and press **Shift-Control-Option-Command-C** (all 4 modifier keys) and Xcode will kindly put the signature on your clipboard.
+
+![Methods in Xcode jump bar](screens/xcode-jump-bar.png)
+
