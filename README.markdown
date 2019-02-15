@@ -114,3 +114,7 @@ import SomeModule
 
 let myClass = MyModule.UsefulClass()
 ```
+
+### Delegates 
+
+When creating custom delegate methods, an unnamed first parameter should be the delegate source. (UIKit contains numerous example of this.)
