@@ -118,3 +118,15 @@ let myClass = MyModule.UsefulClass()
 ### Delegates 
 
 When creating custom delegate methods, an unnamed first parameter should be the delegate source. (UIKit contains numerous example of this.)
+
+**Preferred**:
+```swift 
+func namePickerView(_ namePickerView: NamePickerView, disSelectName name: String)
+func namePickerViewShouldReload(_ namePickerView: NamePickerView) -> Bool
+```
+
+**Not Preferred**
+```swift
+func didSelectName(namePicker: NamePickerViewController, name: String)
+func namePickerShould() -> Bool
+```
