@@ -130,3 +130,23 @@ func namePickerViewShouldReload(_ namePickerView: NamePickerView) -> Bool
 func didSelectName(namePicker: NamePickerViewController, name: String)
 func namePickerShould() -> Bool
 ```
+
+### Use Type Inferred Context
+
+Use complier inferred context to write shorter, clean code. (Also see[Type Inference](#type-inference).)
+
+
+**Preferred**:
+```swift
+let selector = #selector(viewDidLoad)
+view.background = .red
+let toView = context.view(forKey: .to)
+let veiw = UIView(frame: .zero)
+```
+
+**Not Preferred**:
+```swift
+let selector = #selector(ViewController.viewDidload)
+view.backgroundColor = .red
+let toView = context.view(forKey: UITransitionContextViewKey.to)
+let view = UIView(frame: CGrect.zero)
