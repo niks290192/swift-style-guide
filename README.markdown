@@ -1,9 +1,9 @@
 # Swift Style Guide.
 ### Updated for Swift 4.2
 
-This style guide is different from others you may see, because the focus is centered on readability for print and the web. We created this style guide to keep the code in our books, tutorials, and starter kits nice and consistent - even through we have many different authors working on the books.
+This style guide is different from others you may see because the focus is centered on readability for print and the web. We created this style guide to keep the code in our books, tutorials, and starter kits nice and consistent - even though we have many different authors working on the books.
 
-Our overarching goals are clarity, consistency and bervity, in that order
+Our overarching goals are clarity, consistency, and brevity, in that order
 
 ## Table of Contents
 
@@ -60,11 +60,11 @@ Strive to make your code compile without warnings. This rule informs many style 
 
 ## Naming
 
-Descriptive and consistent naming makes software easier to read and understand. Use the Swift naming conventions described in the [API Design Guidelines](https://swift.org/documentation/api-design-guidelines/). Some Key takeways include:
+Descriptive and consistent naming makes software easier to read and understand. Use the Swift naming conventions described in the [API Design Guidelines](https://swift.org/documentation/api-design-guidelines/). Some Key takeaways include:
 
 - striving for clarity at the call site
 - Prioritizing clarity over brevity 
-- using camel case (not snamke case)
+- using camel case (not snake case)
 - using uppercase for types (and protocols), lowercase for everything else
 - including all needed words while omitting needless words 
 - using names based on roles, not types
@@ -78,7 +78,7 @@ Descriptive and consistent naming makes software easier to read and understand. 
   - protocols that describe _what something is_ should read as nouns
   - protocols that describe _a capability_ should end in _-able_ or _-ible_
 - using terms that don't surprise experts or confuse beginners
-- generally avoiding abbrevations 
+- generally avoiding abbreviations 
 - using precedent for names
 - preferring methods and properties to free functions 
 - casing acronyms and initialisms uniformly up or down
@@ -93,20 +93,20 @@ Descriptive and consistent naming makes software easier to read and understand. 
 
 When referring to methods in prose, being unambiguous is critical. To refer to a method name, use the simplest form possible.
 
-1. Write method name with no parameters. **Example:** Next, you need to call `addTarget`.
+1. Write a method name with no parameters. **Example:** Next, you need to call `addTarget`.
 2. Write the method name with argument labels. **Example:** Next, you need to call `addTarget(_:action)`.
 3. Write the full method name with argument labels and types.
 **Example:** Next, you need to call `addTarget(_: Any?, action: Selector?)`.
 
 For the above example using `UIGestureRecognizer`, 1 is unambiguous and preferred.
 
-**Pro Tip:** You can use Xcode's jum bar to lookup methods with argument labels. If you're particularly good at mashing lots of keys simultaneously, put the cursor in  the method name and press **Shift-Control-Option-Command-C** (all 4 modifier keys) and Xcode will kindly put the signature on your clipboard.
+**Pro Tip:** You can use Xcode's jump bar to lookup methods with argument labels. If you're particularly good at mashing lots of keys simultaneously, put the cursor in the method name and press **Shift-Control-Option-Command-C** (all 4 modifier keys) and Xcode will kindly put the signature on your clipboard.
 
 ![Methods in Xcode jump bar](screens/xcode-jump-bar.png)
 
 ### Class Prefixes
 
-Swift types are automatically namespaced by the module that contains them and you should not add a class prefix such as RW. if two names from different modules collide you can disambiguate by prefixing the type name with the module name. However, only specify the module name when there is possibility for confusion which should be rare.
+Swift types are automatically namespaced by the module that contains them and you should not add a class prefix such as RW. if two names from different modules collide you can disambiguate by prefixing the type name with the module name. However, only specify the module name when there is a possibility for confusion which should be rare.
 
 
 ```swift
@@ -133,15 +133,15 @@ func namePickerShould() -> Bool
 
 ### Use Type Inferred Context
 
-Use complier inferred context to write shorter, clean code. (Also see[Type Inference](#type-inference).)
+Use compiler inferred context to write shorter, clean code. (Also see[Type Inference](#type-inference).)
 
 
 **Preferred**:
 ```swift
 let selector = #selector(viewDidLoad)
-view.background = .red
+view.backgroundColor = .red
 let toView = context.view(forKey: .to)
-let veiw = UIView(frame: .zero)
+let view = UIView(frame: .zero)
 ```
 
 **Not Preferred**:
@@ -150,3 +150,73 @@ let selector = #selector(ViewController.viewDidload)
 view.backgroundColor = .red
 let toView = context.view(forKey: UITransitionContextViewKey.to)
 let view = UIView(frame: CGrect.zero)
+```
+
+### Generics 
+
+Generic type parameters should be descriptive, upper camel case names. When a type name doesn't have a meaningful relationship or role, use a traditional single uppercase letter such as `T`, `U`, or `V`.
+
+**Preferred**:
+```swift
+struct Stack<Element> { ... }
+func write<Target: OutputStream>(to target: inout Target)
+func swap<T>(_ a: inout T, _ b: inout T)
+```
+
+**Not Preferred**
+```swift
+struct Stack<T> { ... }
+func write<target: OutputStream>(to target: inout target)
+func swap<Thing>(_ a: inout Thing, _ b: inout Thing)
+```
+
+### Language
+
+Use US English spelling to match Apple's API.
+
+**Preferred**
+```swift
+let color = "red"
+```
+
+**Not Preferred**
+```swift
+let color = "red"
+```
+
+## Code Organization
+
+Use Extensions to organize your code into logical blocks of functionality. Each extension should be sent off with a `// MARK: -`
+comment to keep things well-organized.
+
+### Protocol Conformance
+
+In particular, when adding protocol conformance to a model, prefer adding a separate extension for the protocol methods. This keeps the related methods grouped together with the protocol and can simplify instructions to add a protocol to a class with its associated methods.
+
+**Preferred**:
+```swift 
+class MyViewController: UIViewController {
+    // class stuff here
+}
+
+// MARK: - UITableViewDataSource
+extension MyViewController: UITableViewDataSource {
+    // tableview data source methods
+}
+
+// MARK: - UIScrollViewDelegate
+extension MyViewController: UIScrollViewDelegate {
+    // scroll view delegate methods
+}
+```
+
+**Not Preferred**
+```swift 
+class MyViewController: UIViewController, UITableViewDataSource, UIScrollViewDelegate {
+    // all methods
+}
+```
+
+Since the compiler does not allow you to redeclare protocol conformance in a derived class, it is not always required to replicate the extension groups of the base class. This is especially true if the derived class is a terminal class and a small number of methods are being overridden. When to preserve the extension groups is left to the discretion of the author.
+
+For UIKit view controllers, consider grouping lifecycle, custom accessors, and IBAction in separate class extensions.
