@@ -220,3 +220,66 @@ class MyViewController: UIViewController, UITableViewDataSource, UIScrollViewDel
 Since the compiler does not allow you to redeclare protocol conformance in a derived class, it is not always required to replicate the extension groups of the base class. This is especially true if the derived class is a terminal class and a small number of methods are being overridden. When to preserve the extension groups is left to the discretion of the author.
 
 For UIKit view controllers, consider grouping lifecycle, custom accessors, and IBAction in separate class extensions.
+
+
+### Unused Code
+
+Unused (dead) code, including Xcode template code and placeholder comments should be removed. An exception is when your tutorial or book instructs the user to use th commented code.
+
+Aspirational mentods not directly associated with the tutorials whose implementation simply calls the superclass should also be removed. This includes any empty/ununsed UIApplicationDelegate methods. 
+
+**Preferred**:
+```swift
+override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return Database.contacts.count
+}
+```
+
+**Not Preferred**:
+```swift
+override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+}
+
+override func numberOfSections(in tableView: UITableView) -> Int {
+    // #waring Incomplete implememtaion, return the number of sections
+    return 1
+}
+
+override func tableView(_ tableView: UITableView, numberOfRowsINSection section: Int) -> Int {
+    // #waring Incompleted Implementation, retunr the number if rows
+    return Database.contacts.count
+}
+```
+
+### Minimal Imports
+
+Import only the modules a source file requires. For example, don't import `UIKit` when importing `Foundation` will suffice. LikeWise, don't import `Foundation` if you must import `UIKit`
+
+**Preferred**:
+```
+import UIKit
+var view: UIView
+var deviewModels: [String]
+```
+
+**Preferred**:
+```
+import Foundation
+var deviceModels: [String]
+```
+
+**Not Preferred**:
+```
+import UIKit
+import Foundation
+var view: UIView
+var deviceModels: [String]
+```
+
+**Not Preferred**
+```
+import UIKit
+var deviceModels: [String]
+```
