@@ -283,3 +283,60 @@ var deviceModels: [String]
 import UIKit
 var deviceModels: [String]
 ```
+
+## Spacing
+* Indent using 2 spaces rather than tabs to conserve space and help prevent line wrapping. Be sure to set this perference in Xcode and in the Project setting as shown below:
+
+![Xcode indent setting](screens/indentation.png)
+
+* Method braces and other braces (`if`/ `else` / `switch` / `while` etc.)
+always open to the same line as the statement but close on a new line.
+
+* Tip: You can re-indent by selecting some code for (or **Command-A** to select all) and then **Control-I** (or **Editor ▸ Structure ▸ Re-Indent** in the menu). Some of the Xcode template code will have 4-space tabs hard coded, so this is a good way to fix that.
+
+**Preferred**:
+```swift
+if user.isHappy {
+    // Do something
+} else {
+    // Do something
+}
+```
+
+**Not Preferred**:
+```swift
+if user.isHappy 
+{
+    // Do something
+} 
+else 
+{
+    //Do something else
+}
+```
+
+* There should be excatly one blank line between methods to aid in visual clarity and organization. Whitespace within methods should seperate functionality, but having too many too sections in a method often means you should refactor into  sevral methods.
+
+* There should be no blank lines after an opening brace or before a closing brace.
+
+* Colons always have no space on the left and one space on the right. Exceptions are the ternary operator `? :`, empty dictionary `[:]` and `#selector` syntax `addTarget(_:action:)`.
+
+**Preferred**:
+```swift
+class TestDatabase: Database {
+    var data: [String: CGFloat] = ["A": 1.2, "B": 3.2]
+} 
+```
+
+**Not Preferred**:
+```swift
+class TestDatabase : Database {
+    var data :[String:CGFloat] = ["A" : 1.2, "B": 3.2]
+}
+```
+
+* Long lines should be wrapped at around 70 characters. A hard linit is intentionally not specified.
+
+* Avoid trailing whitespaces at the ends of lines.
+
+* Add a single newline character at the end of each file.
