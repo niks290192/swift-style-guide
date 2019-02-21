@@ -340,3 +340,12 @@ class TestDatabase : Database {
 * Avoid trailing whitespaces at the ends of lines.
 
 * Add a single newline character at the end of each file.
+
+
+## Comments
+
+When they needed, use comments to explain **ehy** a praticular piece of code does something. Comments must be kept up-to-date or deleted.
+
+Avoid block comments inline with code, as the code should be as self documenting as possible. _Exception: This does not apply to those comments used to generate documentation_
+
+Avoid use of C-style comments (`/* ... */`). Prefer the use of double- or triple-slash.
