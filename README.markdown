@@ -349,3 +349,16 @@ When they needed, use comments to explain **ehy** a praticular piece of code doe
 Avoid block comments inline with code, as the code should be as self documenting as possible. _Exception: This does not apply to those comments used to generate documentation_
 
 Avoid use of C-style comments (`/* ... */`). Prefer the use of double- or triple-slash.
+
+
+## Classes and Structures
+
+### Which one to use?
+
+Remember, structs have [value sementics](https://developer.apple.com/library/mac/documentation/Swift/Conceptual/Swift_Programming_Language/ClassesAndStructures.html#//apple_ref/doc/uid/TP40014097-CH13-XID_144).
+Use structs for things that can do not have an identity. An array that contains [a, b, c] is really the same as another array that contains [a, b, c] and they are completely interchangeable. It doesn't matter whether you use the first array or the second, because they represent the excat same thing. That's why array are structs.
+
+Classes have [reference semantics](https://developer.apple.com/library/mac/documentation/Swift/Conceptual/Swift_Programming_Language/ClassesAndStructures.html#//apple_ref/doc/uid/TP40014097-CH13-XID_145).
+Use classes for things that do have an identity or a specific life cycle. You would model a person as a class because two person objects are two different things. Just because two people have the same  name and birthdte, doen't mean they are the person. But the person's birthdate would be a struct because a date of 3 March 1950 is the same as any other date object for march 3 March 1950 is the same as any other date object for 3 March 1950. The date ifself doesn't have an identity.
+
+Sometimes, things should be structs but need to conform to `AnyObject` or are historically modeled as classes already [`NSDate`, `NSSet`]. Try to follow these guidelines as closely as possible.
