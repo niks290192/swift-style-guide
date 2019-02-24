@@ -362,3 +362,47 @@ Classes have [reference semantics](https://developer.apple.com/library/mac/docum
 Use classes for things that do have an identity or a specific life cycle. You would model a person as a class because two person objects are two different things. Just because two people have the same  name and birthdte, doen't mean they are the person. But the person's birthdate would be a struct because a date of 3 March 1950 is the same as any other date object for march 3 March 1950 is the same as any other date object for 3 March 1950. The date ifself doesn't have an identity.
 
 Sometimes, things should be structs but need to conform to `AnyObject` or are historically modeled as classes already [`NSDate`, `NSSet`]. Try to follow these guidelines as closely as possible.
+
+
+### Example definition 
+
+Here's an example of a well-styled class definition:
+
+```swift
+class Circle: Shape {
+    var x: Int, y: Int
+    var radius: Double
+    var diameter: Double {
+        get {
+            return radius * 2
+        }
+        set {
+            radius = newValue / 2
+        }
+    }
+}
+
+init(x: Int, y: Int, radius: Double) {
+    self.x = x
+    self.y = y
+    self.radius = radius
+  }
+
+  convenience init(x: Int, y: Int, diameter: Double) {
+    self.init(x: x, y: y, radius: diameter / 2)
+  }
+
+  override func area() -> Double {
+    return Double.pi * radius * radius
+  }
+}
+
+extension Circle: CustomStringConvertible {
+  var description: String {
+    return "center = \(centerString) area = \(area())"
+  }
+  private var centerString: String {
+    return "(\(x),\(y))"
+  }
+}
+```
