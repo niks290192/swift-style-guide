@@ -368,41 +368,52 @@ Sometimes, things should be structs but need to conform to `AnyObject` or are hi
 
 Here's an example of a well-styled class definition:
 
-```swift
-class Circle: Shape {
+
+```swift 
+class Circle: SHape {
     var x: Int, y: Int
-    var radius: Double
+    var redius: Double
     var diameter: Double {
         get {
             return radius * 2
         }
+
         set {
             radius = newValue / 2
         }
     }
+
+    init(x: Int, y: Int, radius: Double) {
+        self.x = x
+        self.y = y
+        self.radius = radius    
+    }
+
+    convenience init(x: Int, y: Int, diameter: Double) {
+        self.init(x: x, y: y, radius: diameter / 2)
+    }
+
+    override func area() -> Double {
+        return Double.pi * radius * radius
+    }
 }
 
-init(x: Int, y: Int, radius: Double) {
-    self.x = x
-    self.y = y
-    self.radius = radius
-  }
+extension Circle: CustomStringConveryible {
+    var description: String {
+        return "center = \(centerString) area = \(area))"
+    }
 
-  convenience init(x: Int, y: Int, diameter: Double) {
-    self.init(x: x, y: y, radius: diameter / 2)
-  }
-
-  override func area() -> Double {
-    return Double.pi * radius * radius
-  }
-}
-
-extension Circle: CustomStringConvertible {
-  var description: String {
-    return "center = \(centerString) area = \(area())"
-  }
-  private var centerString: String {
-    return "(\(x),\(y))"
-  }
+    private var centerString: String {
+        return "(\(x), \(y))"
+    }
 }
 ```
+
+The example above demonstrates the following style guidelines:
+
++ Specify types for properties, variables, constants, argument declarations and other statements with a space after the colon but not before, e.g. `x: Int`, and `Circle: Shape`.
++ Define multiple variables and structure on a single line if they share a common purpose / context.
++ Indent getter and setter definitations and property observers.
++ Don't add modifiers such as `internal` when they're already the default. Similarly, don't repeat the access modifier when overriding a method. 
++ Organize extra functionality (e.g. printing) in extensions.
++ Hide non-shared, implementation details such as `centerString` inside the extension using `private` access control.
