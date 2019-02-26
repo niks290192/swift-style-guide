@@ -417,3 +417,44 @@ The example above demonstrates the following style guidelines:
 + Don't add modifiers such as `internal` when they're already the default. Similarly, don't repeat the access modifier when overriding a method. 
 + Organize extra functionality (e.g. printing) in extensions.
 + Hide non-shared, implementation details such as `centerString` inside the extension using `private` access control.
+
+
+### Use of Self
+
+For conciseness, avoid using `self` since Swift does not require it to access an object's properties or invoke its methods.
+
+Use self only when require by the compiler (in `@escaping` closures, or in initializers to disambiguate properties from arguments). In other words, if it compiles without `self` then omit it.
+
+### Computed Properties
+
+For conciseness, if a computed property is read-only, omit the get clause. The get clause is required only when a set clause is provided.
+
+**Preferred**:
+```swift
+var diameter: Double {
+    return radius * 2
+}
+```
+
+**Not Preferred**:
+```swift
+var diameter: Double {
+    get {
+        return radius * 2
+    }
+}
+```
+
+### Final
+
+Marking classes or members as `final` in tutorials can distract from the main topic and is not required. Nevertheless, use of `final` can sometimes clarify your intent and is worth the cost. In the below example, `Box` has a particular purpose and customization in a derived class is not intended. Marking it `final` makes that clear.
+
+```swift
+// Turn any generic type into a reference type using this box class.
+final class Box<T> {
+    let value: T
+    init(_ value: T){
+        self.value = value
+    }
+}
+```
