@@ -458,3 +458,56 @@ final class Box<T> {
     }
 }
 ```
+
+## Function Declarations
+
+Keep short functions declarations on one line including the opening brace:
+
+```swift
+func reticulateSplines(spline: [Double]) -> Bool {
+    // reticulate code goes here
+}
+```
+
+For functions with long signatures, put each parameter on a new line and add an extra intend on subsequent lines:
+
+```swift
+func reticulateSplines(
+    spline: [Double], 
+    adjustmentFactor: Double, 
+    translateConstant: Int, comment: String
+) -> Bool {
+    // reticulate code goes here
+}
+```
+
+Don't use `(Void)` to represent the lack of an input; simply use `()`.
+Use `Void` instead of `()` for closure and function outputs.
+
+**Preferred**
+
+```swift
+func updateConstraints() -> Void {
+    // magic happens here
+}
+
+typealias CompletionHandler = (result) -> Void
+```
+
+## Function Calls
+
+Mirror the style of function declarations at call sites. Calls that fit on a single line should be written as such:
+
+```swift
+let success = reticulateSplines(splines)
+```
+
+If the call site must be wrapped, put each parameter on a new line, indented one additional level:
+
+```swift
+let success = reticulateSplines(
+    spline: splines,
+    adjustmentFactor: 1.3,
+    translateConstant:2, 
+    comment: "normalize the display")
+```
