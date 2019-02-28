@@ -511,3 +511,53 @@ let success = reticulateSplines(
     translateConstant:2, 
     comment: "normalize the display")
 ```
+
+## Closure Expressions
+
+Use trailing closure syntax only of there's a single closure expression parameter at the end of the argument list. Give the closure parameter descriptive names.
+
+**Preferred**:
+```swift
+UIView.animated(withDuration: 1.0) {
+    self.myView.alpha = 0
+}
+
+UIView.animated(withDuration: 1.0, animation: {
+    self.myView.alpha = 0
+}, completion:{ finished in
+    self.myView.removeFromSuperView()
+})
+```
+
+**Not Preferred**:
+```swift
+UIView.animated(withDuration: 1.0, animations:{
+    self.myView.alpha = 0
+})
+
+ UIView.animated(withDuration: 1.0, animations:{
+    self.myView.alpha = 0
+ }) { f in
+    self.myView.removeFromSuperView()
+ }
+```
+
+For single-expression closure where the context is clear, use implicit returns:
+
+```swift
+attendeeList.sort { a, b in
+    a > b
+}
+```
+
+Chained methods using trailing closure should be clear and easy to read in context, decisions on spacing, line breaks, and when to user named versus anonymus arguments is left to the descretion of the author. 
+Examples:
+
+```swift
+let value = number.map { $0 * 2 }.filter { $0 % 3 == 0 }.index(of: 90)
+
+let value = number
+    .map{$0 * 2}
+    .filter {$0 > 50}
+    .map{ $0 + $10}
+```
