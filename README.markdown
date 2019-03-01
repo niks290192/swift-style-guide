@@ -561,3 +561,27 @@ let value = number
     .filter {$0 > 50}
     .map{ $0 + $10}
 ```
+
+## Types
+
+Always use Swift's native types and expressions when available . Swift offers bridging to Objective-C so you can still use the full set of methods as needed.
+
+**Preferred**:
+```swift
+let width = 120.0                                           //Double
+let widthString = "\(width)"                                //String
+```
+
+**Less Preferred**:
+```swift
+let width = 120.0                                           //Double
+let widthString = (width as NSNumber).stringValue           //String
+```
+
+**Not Preferred**:
+```swift
+let width: NSNumber = 120.0                                 //NSNumber
+let widthString: NSString = width.stringValue               //NSString
+```
+
+In drawing code, use `CGFloat` if it makes the code more succinct by avoiding too many conversions.
