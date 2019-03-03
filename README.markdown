@@ -585,3 +585,35 @@ let widthString: NSString = width.stringValue               //NSString
 ```
 
 In drawing code, use `CGFloat` if it makes the code more succinct by avoiding too many conversions.
+### COnstants
+
+Constants are defined using the `let` keyword and variable with the `var` keyword. Always use `let` instead of `var` if the value of the variable will not change.
+
+**Tip:** A good techinque is to define everything using `let` and only cjange it to `var` if the compiler complains!
+
+You can define constants on a type rather than on an instance of that type using type properties. to declare a type property as a conatant simply use `static let`. Type properties declared in this way are generally preferred over global constants because they are easier to distinguish from instance properties. Example:
+
+**Preferred**:
+```swift
+enum Math {
+    static let e = 2.718281828459045235360287
+    static let root2 = 1.41421356237309504880168872
+}
+
+let hypotenuse = side * Math.root2
+```
+
+**Note:** The advantage of using a case-less enumeration is that it can't accidentally be instantiated and works as a pure namespace.
+
+**Not Preferred**:
+```swift
+let e = 2.718281828459045235360287 // pollutes global namespace
+let root2 = 1.41421356237309504880168872
+
+let hypotenuse = side * root2 // what is root2?
+```
+
+### Static Methods and Variable Type Properties
+
+Statis methods and type properties work similarly to global functions and global variables and should be used sparingly. They are useful when functionaluty is scoped to a particular type or when Objective-C interoperability is required.
+
