@@ -617,3 +617,64 @@ let hypotenuse = side * root2 // what is root2?
 
 Statis methods and type properties work similarly to global functions and global variables and should be used sparingly. They are useful when functionaluty is scoped to a particular type or when Objective-C interoperability is required.
 
+
+### Optionals 
+
+Declare variables and function return types as optionals with `?` where a `nil` value is acceptable.
+
+Use implicitly unwrapped types declared with `!` only for instance variables that you will be initialized later before use, such as subviews that will be setup in `viewDidLoad()`. Prefer optional binding to implicitly unwrapped optionals in most other cases.
+
+Wehn accessing an optional value, use optional chaining if the value is only accessing once or if there are many optionals in the chain: 
+
+```swift
+textContainer?.textLabel?.setNeedsDisplay()
+```
+
+Use optional binding when it's more convenient to unwrap once and preform multiple operations:
+
+```swift
+if let textContainer = textContainer {
+    // do many things with textContainer
+}
+```
+
+
+When naming optional variables and properties, avoid naming them like `optionalString` or `maybeView` since their optional-ness is already in the type declaration.
+
+For optionals binding, shadow the original name whenever possible rather than using names like `unwrappedView` or `actualLabel`.
+
+**Preferred**:
+```swift
+var subview: UIView?
+var volume: Double?
+
+// later on....
+if let subview = subview, let voulme = volume {
+    // do something with unwrapped subview and volume
+}
+
+// another example
+UIView.animate(withDuration: 2.0) { [weak self] in
+    guard let self = self else { return }
+    self.alpha = 1.0
+}
+```
+
+
+**Not Preferred**:
+```swift 
+var optionalSubView: UIView?
+var volume: Double?
+
+if let unwrappedSubView = optionalSubView {
+    if let realVolume = volume {
+        // do something with unwrappedSubView and RealVolume
+    }
+}
+
+// another example
+UIView.animate(withDuration: 2.0) { [weak self] in 
+    guard let strongSelf = self else { return }
+    strongSelf.alpha = 1.0
+}
+```
