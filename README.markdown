@@ -678,3 +678,24 @@ UIView.animate(withDuration: 2.0) { [weak self] in
     strongSelf.alpha = 1.0
 }
 ```
+
+
+###  Lazy Initialization
+
+Consider using lazy initialization for finer grained control over object lifetime. This is especially true for `UIViewController` that loads views lazily. You can either use a closure that is immediately called `{}()` or call a private factory method. Example:
+
+```swift
+lazy var locationManager = makeLocationManager()
+
+private func makeLocationManager() -> CLLocationManager {
+    let manager = CLLocationManager()
+    manager.desiredAccuracy = kCLLocationAccuracyBest
+    manager.delegate = self
+    manager.requestAlwaysAuthorization()
+    return manager
+}
+```
+
+**Notes:**
+  - `[unowned self]` is not required here. A retain cycle is not created. 
+  - Location manager has a side-effect for popping up UI to ask user for permission so fine grain control makes sense here.
