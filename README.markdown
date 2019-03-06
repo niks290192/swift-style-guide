@@ -699,3 +699,60 @@ private func makeLocationManager() -> CLLocationManager {
 **Notes:**
   - `[unowned self]` is not required here. A retain cycle is not created. 
   - Location manager has a side-effect for popping up UI to ask user for permission so fine grain control makes sense here.
+
+
+### Type Inference
+
+Prefer compact code and let the compiler infer the type for constants or variables of single instances. Type Inference is also appropriate for small, non-empty arrays and dictionaries. When required specify the specific type such as `CGFloat` or `Int16`.
+
+**Preferred**:
+```swift
+let message = "Click the button"
+let currentBounds = computeViewBounds()
+var names = ["Mic", "Sam", "Christine"]
+let maximumwidth: CGFloat = 106.5
+```
+
+**Not Preferred**:
+```swift
+let message: String = "Click the button"
+let currentBounds: CGRect = computeViewBounds()
+var names = [String]()
+```
+
+#### Type Annotation for Empty Arrays and Dictionaries
+
+For empty arrays and dictionaries, use type annotation. (For an array or dictionary assigned to a large, multi-line literal, use type annotation.)
+
+
+**Preferred**:
+```swift
+var names: [String] = []
+var lookup: [String: Int] = [:]
+```
+
+**Not Preferred**:
+```swift
+var names = [String]()
+var lookup = [String: Int]()
+```
+
+**NOTE**: Following this guideline means picking descriptive names is even more important than before.
+
+### Syntatic Sugar
+
+Prefer the shortcut versions of type declarations over the full generics syntax.
+
+**Preferred**:
+```swift
+var deviceModels: [String]
+var employees: [Int: String]
+var faxNumber: Int?
+```
+
+**Not Preferred**
+```swift
+var deviceModels: Array<String>
+var employees: Dictionary<Int, String>
+var faxNumber: Optional<Int>
+```
