@@ -756,3 +756,28 @@ var deviceModels: Array<String>
 var employees: Dictionary<Int, String>
 var faxNumber: Optional<Int>
 ```
+
+## Functions vs Methods
+
+Free functions, which aren't attached to a class or type, should be used sparingly. When possible, prefer to use a method instead of a free function. This aids in readibility and discoverability.
+
+Free functions are most appropriate when they aren't associated with any particular type or instance.
+
+**Preferred**:
+```swift
+let sorted = items.mergeSorted() // easily discoverable
+rocket.launch() //acts on the model
+```
+
+**Not Preferred**:
+```swift
+let sorted = mergeSort(items) // hard to discover
+launch(&rocket)
+```
+
+**Free Functions Exceptions**
+```swift
+let tuples = zip(a, b) // feels natural as a free function(symmetry)
+let value = max(x, y, z) //another free function that feels natural
+```
+
