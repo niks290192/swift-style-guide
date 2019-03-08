@@ -781,3 +781,46 @@ let tuples = zip(a, b) // feels natural as a free function(symmetry)
 let value = max(x, y, z) //another free function that feels natural
 ```
 
+## Memory Management
+
+Code (even non-production, tutorial demo code) should not create reference cycles. Analyze your object graph and prevent strong cycles with `weak` and `unowned` references. Alternativelym use value types (`struct`, `enum`) to prevent cycles altogether.
+
+### Extending object lifetime
+
+Extend object lifetime using the `[weak self]` and `guard let self = self else { return }` idiom. `[weak self]` is preferred to `[unowned self]` where it is not immediately obvious that `self` outlives the closure. Explicitly extending lifetime is preferred to optional chaining.
+
+**Preferred**:
+```swift
+resource.request().onComplete{ [weak self] response in
+    guard let self = self else {
+        return
+    }
+    let model = self.updateModel(response)
+    self.updateUI(model)
+}
+```
+
+## Access Control
+
+Full access control annotation in tutorials can distract from the main topic and is not required. Using `private` anc `fileprivate` appropriately, however, adds clarity and promotes encapsulation. Prefer `private` to `fileprivate`; use `fileprivate` only when the compiler insists.
+
+Only explicitly use `one`, `public`, and `internal` when you require a full access control are the `static` sprcifier or attributes such as `@IBAction`, `@IBOutlet` and `@discardableResult`.
+
+**Preferred**:
+```swift
+private let message = "Great Scott!"
+
+class TimeMachine {
+    private dynamic lazy var fluxCapacitor = FluxCapacitor()
+}
+```
+
+
+**Not Preferred**:
+```swift
+fileprivate let message = "Great Scott!"
+
+class TimeMachine {
+    lazy dynamic private var fluxCapacitor = FluxCapacitor()
+}
+```
