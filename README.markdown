@@ -824,3 +824,42 @@ class TimeMachine {
     lazy dynamic private var fluxCapacitor = FluxCapacitor()
 }
 ```
+
+## Control Flow
+
+Prefer the `for-in` style of `for` loop over the `while-condition-increment` style.
+
+**Preferred**:
+```swift
+for _ in 0..<3 {
+    print("Hello three times")
+}
+
+for (index, person) in attachmentList.enumerated() {
+    print("\(person) is at position #\(index)")
+}
+
+for index in stride(form: 0, to: items.count, by: 2) {
+    print(index)
+}
+
+for index in (0...3).reversed() {
+    print(index)
+}
+```
+
+**Not Preferred**:
+```swift
+var i = 0
+while i < 3 {
+    print("Hello three times")
+    i += 1
+}
+
+var i = 0
+while i < attendeeList.count {
+    let person = attendeeList[i]
+    print("\(person) is at position #\(i)")
+    i += 1
+}
+```
