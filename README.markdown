@@ -863,3 +863,87 @@ while i < attendeeList.count {
     i += 1
 }
 ```
+
+### Ternary Operator
+
+The Ternary operator, `?:` , should only be used when it increases clarity or code neatness. A single condition is usually all that should be evaluated. Evaluating multiple conditions is usually more understandable as an `if` statement or refactored into instance variable. In general, the best use of the ternary operator is during assignment of a variable and deciding which value to use.
+
+**Preferred**:
+
+```swift
+let value = 5
+result = value != 0 ? x : y
+
+let isHorizontal = true
+result = isHorizontal ? x : y
+```
+
+**Not Preferred**:
+```swift
+result = a > b ? x = c > d ? c : d : y
+```
+
+## Golden Path
+when coding with conditionals, the left-hand margin of the code should be the "golden or "happy" path. That is, don't nest `if` statements. Multiple return statements are OK. The `guard` statement is build for this.
+
+**Preferred**:
+```swift
+func computeFFT(context: Context?, inputData: InputData?) throws -> Frequencies {
+    guard let context = context else {
+        throw FFTError.noContext
+    }
+    guard let inputData = inputData else {
+        throw FFTError.noInputData
+    }
+
+    //use context and input to compute the frequencies
+    return frequencies
+}
+```
+
+**Not Preferred**:
+```swift
+func computeFFT(context: Context?, inputData: InputData?) throws -> Frequencies {
+    if let context = context {
+        if let inputData = inputData {
+            //use context and input to compute the frequencies 
+            return frequencies 
+        } else {
+            throw FFTError.noInputData
+        }
+    } else {
+        throw FFTError.noContext
+    }
+}
+```
+
+When Multiple coptionals are unwrapped either with `guard` or `if let`, minimize nesting by using the compund version when possible. In the compund version, place the `guard` on its own line, then ident each condition on its own line. The `else` clause is indented to match the conditions and the code is indented on additional level, as shown below. Example:
+
+**Preferred**:
+```swift
+guard
+    let number1 = number1, 
+    let number2 = number2,
+    let number3 = number3
+    else {
+        fatalError("impossible")
+}
+// do something with numbers
+```
+
+**Not Preferred**:
+```swift
+if let number1 = number1 {
+    if let number2 = number2 {
+        if let number3 = number3 {
+            //do something with numbers
+        } else {
+            fatalError("impossible")
+        }
+    } else {
+        fatalError("Impossible")
+    }
+} else {
+    fatalError("Impossible")
+}
+```
