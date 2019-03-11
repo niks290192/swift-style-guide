@@ -947,3 +947,50 @@ if let number1 = number1 {
     fatalError("Impossible")
 }
 ```
+
+### Failing Guards
+
+Guard statements are required to exit in someway. Generally, this should be simple one line statement such as `return`, `throw`, `break`, `continue`, and `fatalError()`. Large code blocks should be avoided. If cleanup code is required for multiple exit points, consider using a `defer` block to avoid cleanup code duplication.
+
+## SemiColons
+
+Swift does not require a semicolon after each statement in your code. They are only required if you wish to combine multiple statements on a single line.
+
+Do not write multiple statements on a single line separated with semicolons.
+
+**Preferred**:
+```swift
+let swift = "not a scripting language"
+```
+
+**Not Preferred**:
+```swift
+let swift = "not a scripting language";
+```
+
+**NOTE**: Swift is very different from JavaScript, where omitting semicolons is [generally considered insafe](http://stackoverflow.com/questions/444080/do-you-recommend-using-semicolons-after-every-statement-in-javascript)
+
+##Parantheses
+
+Parantheses around conditionals are not required and should be omitted.
+
+**Preferred**:
+```swift
+if name == "Hello" {
+    print("World")
+}
+```
+
+**Not Preferred**:
+```swift
+if (name == "Hello") {
+    print("World")
+}
+```
+
+In larger expressions, optionals parentheses can sometimes make code read more clearly.
+
+**Preferred**:
+```swift
+let playerMark = (player == current ? "X" : "0")
+```
