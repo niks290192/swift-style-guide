@@ -994,3 +994,49 @@ In larger expressions, optionals parentheses can sometimes make code read more c
 ```swift
 let playerMark = (player == current ? "X" : "0")
 ```
+
+## Multi-line String Literals
+
+When building a long string, you're encourged to use the multi-line string literal syntax. Open the literal on the same line as the assignment but do not include text on that line. Indent the text block one additional level.
+
+**Preferred**:
+```swift
+let message = """
+    You cannot charge the flux \
+    capacitor with a 9V battery.
+    You must use a super-charger \
+    which costs 10 credits. You currently \
+    have \(credits) credits available.
+    """
+```
+
+**Not Preferred**:
+
+```swift
+let message = """You cannot charge the flux \
+  capacitor with a 9V battery.
+  You must use a super-charger \
+  which costs 10 credits. You currently \
+  have \(credits) credits available.
+  """
+```
+
+**Not Preferred**:
+
+```swift
+let message = "You cannot charge the flux " +
+    "capacitor with a 9V battery.\n" + 
+    "You must use a super-charger " +
+    "which costs 10 credits. You currently " +
+    "have \(credits) credits available." 
+```
+
+## No Emoji
+
+Do not use emoji in your projects. For those readers who actually type in their code, it's an unnecessary source of friction. while it may be cute, it does't add to the learning and it interrupts the coding flow for these readers.
+
+## Organization and Bundle Identifier
+
+Where an Xcode project is involved, the organization should be set to `Orgnization Name` and the bundle Identifier set to `com.organizationname.ExampleProject` where `ExampleProject` is the name of the tutorial project.
+
+![Xcode Project settings](screens/project_settings.png)
