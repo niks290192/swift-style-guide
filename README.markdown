@@ -7,6 +7,7 @@ Our overarching goals are clarity, consistency, and brevity, in that order.
 
 ## Table of Contents
 
+
 * [Correctness](#correctness)
 * [Naming](#naming)
   * [Prose](#prose)
